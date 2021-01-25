@@ -5,6 +5,11 @@ var haveWebkitEvents = "WebKitGamepadEvent" in window;
 var controllers = {};
 var rAF = window.requestAnimationFrame;
 
+// http://jsfiddle.net/m1erickson/CtsY3/
+var startTime, now, then;
+then = Date.now();
+var fpsInterval = 1000 / 5; // 5fps
+
 // Create WebSocket connection.
 const socket = new WebSocket(
   "ws://" + window.location.host + window.location.pathname + "sock"
@@ -111,8 +116,12 @@ function updateStatus() {
       a.setAttribute("value", controller.axes[i]);
     }
 
-    if (haveSocket) {
+    now = Date.now();
+    var elapsed = now - then;
+
+    if (haveSocket && elapsed > fpsInterval) {
       // Encode Gamepad object.
+      console.log("socket send!");
       socket.send(
         JSON.stringify({
           id: controller.id,

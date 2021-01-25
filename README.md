@@ -1,6 +1,9 @@
 # EDI
 
 A balancing robot. Testing rust bindings to C code and async/await syntax.
+Based on the beaglebone blue board.
+
+![edi](build.jpg)
 
 ## Build
 
